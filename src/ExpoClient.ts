@@ -243,7 +243,7 @@ export class Expo {
       method: options.httpMethod,
       body: requestBody,
       headers: requestHeaders,
-      agent: this.httpAgent,
+      // agent: this.httpAgent, // Cloudflare Worker環境だとIllegal Invocationエラーが発生するためコメントアウト
     });
 
     if (response.status !== 200) {
