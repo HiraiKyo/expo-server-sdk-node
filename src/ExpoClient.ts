@@ -5,12 +5,12 @@
  * Application Services
  * https://expo.dev
  */
-import assert from 'node:assert';
 import { Agent } from 'http';
 import fetch, { Headers, Response as FetchResponse } from 'node-fetch';
+import assert from 'node:assert/strict';
+import zlib from 'node:zlib';
 import promiseLimit from 'promise-limit';
 import promiseRetry from 'promise-retry';
-import zlib from 'node:zlib';
 
 import { requestRetryMinTimeout } from './ExpoClientValues';
 
