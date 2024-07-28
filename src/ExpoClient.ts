@@ -12,7 +12,7 @@ import zlib from 'node:zlib';
 import promiseLimit from 'promise-limit';
 import promiseRetry from 'promise-retry';
 
-import { requestRetryMinTimeout } from './ExpoClientValues';
+import { requestRetryMinTimeout } from './ExpoClientValues.js';
 
 const BASE_URL = 'https://exp.host';
 const BASE_API_URL = `${BASE_URL}/--/api/v2`;
