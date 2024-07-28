@@ -5,10 +5,10 @@
  * Application Services
  * https://expo.dev
  */
+
 import { Agent } from 'http';
 import fetch, { Headers, Response as FetchResponse } from 'node-fetch';
-import assert from 'node:assert/strict';
-import zlib from 'node:zlib';
+import pako from 'pako';
 import promiseLimit from 'promise-limit';
 import promiseRetry from 'promise-retry';
 
@@ -345,15 +345,20 @@ export default Expo;
 
 function gzipAsync(data: Buffer): Promise<Buffer> {
   return new Promise((resolve, reject) => {
-    zlib.gzip(data, (error, result) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(result);
-      }
-    });
+    try {
+      const compressed = pako.gzip(new Uint8Array(data));
+      resolve(Buffer.from(compressed));
+    } catch (e) {
+      reject(e);
+    }
   });
 }
+
+const assert = (condition?: boolean, message?: string) => {
+  if (!condition) {
+    throw new Error(message || 'Assertion failed');
+  }
+};
 
 export type ExpoClientOptions = {
   httpAgent?: Agent;
